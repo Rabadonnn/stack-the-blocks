@@ -40,7 +40,7 @@ let blockSize;
 const blockSpeed = 350;
 const blockSpeedIncrement = 10;
 const blockFallingSpeed = 600;
-const charHeight = 80;
+let charHeight;
 const playerFallingSpeed = 500;
 // ---------------   
 
@@ -233,6 +233,7 @@ class Game {
         this.defaults();
     
         blockSize = getBlockSize();
+        charHeight = blockSize * 2.3;
 
         player = new Player();
 
