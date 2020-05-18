@@ -17,6 +17,7 @@ let buttonStyle = {
 let playButton = React.createElement("button", {
     onClick: () => {
         window.setScreen("gameScreen");
+        window.restartGame();
     },
     id: "button",
     style: buttonStyle

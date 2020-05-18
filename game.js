@@ -330,8 +330,7 @@ class Game {
     }
 
     mousePressed() {
-
-        if (mouseIsPressed && !this.mouse_pressed) {
+        if ((mouseIsPressed || keyIsDown(32)) && !this.mouse_pressed) {
             this.mouse_pressed = true;
 
             if (!this.started) {
@@ -340,7 +339,7 @@ class Game {
             if (this.started) {
                 this.onMousePress();
             }
-        } else if (!mouseIsPressed){
+        } else if (!mouseIsPressed && !keyIsDown(32)){
             this.mouse_pressed = false;
         }        
     }

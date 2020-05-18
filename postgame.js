@@ -5,7 +5,7 @@ let buttonStyle = {
     height: "15%",
     borderRadius: "20px",
     fontSize: "180%",
-    backgroundColor: config.playButtonColor,
+    backgroundColor: config.buttonColor,
     color: config.textColor,
     border: "none",
     outline: "none",

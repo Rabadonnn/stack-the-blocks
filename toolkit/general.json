@@ -87,7 +87,7 @@
                 {
                     "key": "buttonColor",
                     "header": "Buttons color",
-                    "type": "text"
+                    "type": "color"
                 },
                 {
                     "key": "buttonTextColor",
@@ -280,7 +280,7 @@
             "ctaUrl": "http://playcent.com/browser/#/home"
         },
         "settings": {
-            "instructions1": "Tap to place blocks",
+            "instructions1": "Tap / Spacebar to place blocks",
             "instructions2": "Place new blocks over the old ones",
             "instructions3": "Have fun!",
             "textColor": "#000",

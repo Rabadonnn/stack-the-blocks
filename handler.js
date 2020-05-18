@@ -46,6 +46,13 @@ window.setScreen = function(screenName) {
 
 window.restartGame = () => {
     game = new Game();
+    
+    if (window.soundEnabled) {
+        window.sounds.theme.setLoop(true);
+        window.sounds.theme.setVolume(parseFloat(config.settings.volume));
+        window.sounds.theme.play();
+    }
+
     window.setScreen("gameScreen");
 }
 
@@ -84,12 +91,6 @@ window.setup = function() {
     loadGoogleFont();
     createCanvas(window.innerWidth, window.innerHeight);
     game = new Game();
-
-    if (window.soundEnabled) {
-        window.sounds.theme.setLoop(true);
-        window.sounds.theme.setVolume(parseFloat(config.settings.volume));
-        window.sounds.theme.play();
-    }
 }
 
 window.draw = function() {
