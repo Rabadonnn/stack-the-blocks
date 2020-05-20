@@ -77,7 +77,7 @@ class Player {
         this.detached = [];
         this.placed = [];
 
-        for (let i = 0; i < 5; i++) {
+        for (let i = 0; i < config.settings.blockCount; i++) {
             let x = (width / 2 - gameSize.w / 2 + blockSize * 2) + blockSize * i * 1.05;
             this.blocks.push(new Block(x, height - height / 2.5));
         }
@@ -217,12 +217,18 @@ class Player {
 
             this.speed += blockSpeedIncrement;
         } else {
-            this.detached.push(...this.placed);
-            this.placed.length = 0;
+            this.finishGame();
             return false;
         }
 
         return true;
+    }
+
+    finishGame() {
+        this.detached.push(...this.blocks);
+        this.detached.push(...this.placed);
+        this.blocks.length = 0;
+        this.placed.length = 0;
     }
 }
 
@@ -243,6 +249,10 @@ class Game {
         this.comboTextRotation = 0;
         this.comboTextY =  (height / 2) * 0.5;
         this.c_comboTextY = this.comboTextY;
+
+        if (config.settings.fixedLength) {
+            this.gameLength = config.settings.gameLength;
+        }
     }
 
     permaUpdate() {
@@ -287,6 +297,13 @@ class Game {
         if (config.settings.showComboText && this.comboText != "") {
             this.drawComboText();
         }
+
+        if (this.gameLength) {
+            this.gameLength -= deltaTime / 1000;
+            if (this.gameLength < 0) {
+                this.finishGame();
+            }
+        }
     }
 
     onMousePress() {
@@ -302,9 +319,16 @@ class Game {
             playSound(window.sounds.tap);
         } else {
             if (!this.finished) {
-                this.finished = true;
+                this.finishGame();
                 playSound(window.sounds.lose);
             }
+        }
+    }
+
+    finishGame() {
+        if (!this.finished) {
+            this.finished = true;
+            player.finishGame();
         }
     }
 
@@ -424,6 +448,12 @@ class Game {
                 textSize(this.c_scoreFontSize);
                 textFont(config.preGameScreen.fontFamily);
                 text(this.score, width / 2, height / 6);
+
+                if (!this.finished) {
+                    textSize(this.scoreFontSize * 0.7);
+                    textAlign(RIGHT);
+                    text(this.gameLength.toFixed(1), width / 2 + gameSize.w / 2 - 30, 30);
+                }
             }
 
             if (this.finished) {

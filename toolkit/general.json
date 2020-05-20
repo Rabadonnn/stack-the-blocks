@@ -12,6 +12,11 @@
                     "type": "text"
                 },
                 {
+                    "key": "titleTextSize",
+                    "header": "Title text size",
+                    "type": "range"
+                },
+                {
                     "key": "playButtonText",
                     "header": "Play Button Text",
                     "type": "text"
@@ -31,6 +36,11 @@
                     "header": "Header Image",
                     "type": "image"
                 },
+                {
+                    "key": "titleImageSize",
+                    "header": "Header image size",
+                    "type": "range"
+                }, 
                 {
                     "key": "cardColor",
                     "header": "Card Color",
@@ -55,6 +65,140 @@
                     "key": "leaderboardButtonText",
                     "header": "Leaderboard button text",
                     "type": "text"
+                }
+            ]
+        },
+        {
+            "icon": "",
+            "key": "settings",
+            "header": "Game Settings",
+            "disabled": false,
+            "fields": [
+                {
+                    "key": "instructions1",
+                    "type": "text",
+                    "header": "Instructions Text 1"
+                },
+                {
+                    "key": "instructions2",
+                    "type": "text",
+                    "header": "Instructions Text 2"
+                },
+                {
+                    "key": "instructions3",
+                    "type": "text",
+                    "header": "Instructions Text 3"
+                },
+                {
+                    "key": "textColor",
+                    "header": "In Game Text Color",
+                    "type": "color"
+                },
+                {
+                    "key": "block",
+                    "header": "Block Image",
+                    "type": "image"
+                }, 
+                {
+                    "key": "showPlayer",
+                    "header": "Show player over platform",
+                    "type": "boolean"
+                },
+                {
+                    "key": "idle",
+                    "header": "Player idle sprite",
+                    "type": "image"
+                },
+                {
+                    "key": "jump",
+                    "header": "Player jump sprite",
+                    "type": "image"
+                },
+                {
+                    "key": "blockSize",
+                    "type": "range",
+                    "header": "Block size"
+                },
+                {
+                    "key": "blockCount",
+                    "header": "Block count",
+                    "type": "range",
+                    "options": {
+                        "min": 3,
+                        "max": 6
+                    }
+                },
+                {
+                    "key": "depth",
+                    "header": "Show depth effect",
+                    "type": "boolean"
+                },
+                {
+                    "key": "fixedLength",
+                    "header": "Fixed game length",
+                    "type": "boolean"
+                },
+                {
+                    "key": "gameLength",
+                    "header": "Game length",
+                    "type": "range"
+                },
+                {
+                    "key": "tap",
+                    "header": "Tap sound effect",
+                    "type": "sound"
+                },
+                {
+                    "key": "theme",
+                    "header": "Background Music",
+                    "type": "sound"
+                },
+                {
+                    "key": "lose",
+                    "header": "Lose sound effect",
+                    "type": "sound"
+                },
+                {
+                    "key": "volume",
+                    "header": "Background music volume",
+                    "type": "range"
+                },
+                {
+                    "key": "showComboText",
+                    "header": "Show text when performing a combo",
+                    "type": "boolean"
+                },
+                {
+                    "key": "comboTextColor",
+                    "header": "Combo text color",
+                    "type": "color"
+                },
+                {
+                    "key": "comboTexts",
+                    "header": "Combo texts",
+                    "type": "array",
+                    "fields": [
+                        {
+                            "key": "i1",
+                            "header": "1",
+                            "type": "text"
+                        },
+                        {
+                            "key": "i2",
+                            "header": "2",
+                            "type": "text"
+                        },
+                        {
+                            "key": "i3",
+                            "header": "3",
+                            "type": "text"
+                        },
+                        {
+                            "key": "i4",
+                            "header": "4",
+                            "type": "text"
+                        }
+                    ]
                 }
             ]
         },
@@ -135,136 +279,49 @@
                     "type": "text"
                 }
             ]
-        },
-        {
-            "icon": "",
-            "key": "settings",
-            "header": "Game Settings",
-            "disabled": false,
-            "fields": [
-                {
-                    "key": "instructions1",
-                    "type": "text",
-                    "header": "Instructions Text 1"
-                },
-                {
-                    "key": "instructions2",
-                    "type": "text",
-                    "header": "Instructions Text 2"
-                },
-                {
-                    "key": "instructions3",
-                    "type": "text",
-                    "header": "Instructions Text 3"
-                },
-                {
-                    "key": "textColor",
-                    "header": "In Game Text Color",
-                    "type": "color"
-                },
-                {
-                    "key": "block",
-                    "header": "Block Image",
-                    "type": "image"
-                }, 
-                {
-                    "key": "showPlayer",
-                    "header": "Show player over platform",
-                    "type": "boolean"
-                },
-                {
-                    "key": "idle",
-                    "header": "Player idle sprite",
-                    "type": "image"
-                },
-                {
-                    "key": "jump",
-                    "header": "Player jump sprite",
-                    "type": "image"
-                },
-                {
-                    "key": "blockSize",
-                    "type": "range",
-                    "header": "Block size"
-                },
-                {
-                    "key": "depth",
-                    "header": "Show depth effect",
-                    "type": "boolean"
-                },
-                {
-                    "key": "tap",
-                    "header": "Tap sound effect",
-                    "type": "sound"
-                },
-                {
-                    "key": "theme",
-                    "header": "Background Music",
-                    "type": "sound"
-                },
-                {
-                    "key": "lose",
-                    "header": "Lose sound effect",
-                    "type": "sound"
-                },
-                {
-                    "key": "volume",
-                    "header": "Background music volume",
-                    "type": "range"
-                },
-                {
-                    "key": "showComboText",
-                    "header": "Show text when performing a combo",
-                    "type": "boolean"
-                },
-                {
-                    "key": "comboTextColor",
-                    "header": "Combo text color",
-                    "type": "color"
-                },
-                {
-                    "key": "comboTexts",
-                    "header": "Combo texts",
-                    "type": "array",
-                    "fields": [
-                        {
-                            "key": "i1",
-                            "header": "1",
-                            "type": "text"
-                        },
-                        {
-                            "key": "i2",
-                            "header": "2",
-                            "type": "text"
-                        },
-                        {
-                            "key": "i3",
-                            "header": "3",
-                            "type": "text"
-                        },
-                        {
-                            "key": "i4",
-                            "header": "4",
-                            "type": "text"
-                        }
-                    ]
-                }
-            ]
         }
     ],
     "config": {
         "preGameScreen": {
             "titleText": "Stack The Blocks",
+            "titleTextSize": 30,
             "playButtonText": "Play",
-            "titleImage": "",
             "cardColor": "#ffffff",
             "buttonColor": "#000000",
             "buttonTextColor": "#ffffff",
             "backgroundImage": "assets/background.png",
             "titleImage": "assets/placeholder_logo.jpg",
+            "titleImageSize": 200,
             "fontFamily": "Balsamiq Sans",
             "showLeaderboardButton": true,
             "leaderboardButtonText": "Leadeboard"
+        },
+        "settings": {
+            "instructions1": "Tap / Spacebar to place blocks",
+            "instructions2": "Place new blocks over the old ones",
+            "instructions3": "Have fun!",
+            "textColor": "#000",
+            "theme": "assets/theme.ogg",
+            "volume": "0.7",
+            "block": "assets/block.png",
+            "blockSize": 40,
+            "blockCount": 5,
+            "showPlayer": true,
+            "idle": "assets/idle.png",
+            "jump": "assets/jump.png",
+            "depth": true,
+            "fixedLength": true,
+            "gameLength": 15,
+            "showComboText": true,
+            "comboTextColor": "#ffff00",
+            "comboTexts": {
+                "i1": "Nice!",
+                "i2": "Keep up!",
+                "i3": "Great!",
+                "i4": "Perfect!"
+            },
+            "tap": "assets/tap.wav",
+            "lose": "assets/lose.wav"
         },
         "postGameScreen": {
             "scoreText": "Your score is: ",
@@ -279,29 +336,10 @@
             "ctaButtonText": "Go to Playcent",
             "ctaUrl": "http://playcent.com/browser/#/home"
         },
-        "settings": {
-            "instructions1": "Tap / Spacebar to place blocks",
-            "instructions2": "Place new blocks over the old ones",
-            "instructions3": "Have fun!",
-            "textColor": "#000",
-            "theme": "assets/theme.ogg",
-            "volume": "0.7",
-            "block": "assets/block.png",
-            "blockSize": 40,
-            "showPlayer": true,
-            "idle": "assets/idle.png",
-            "jump": "assets/jump.png",
-            "depth": true,
-            "showComboText": true,
-            "comboTextColor": "#ffff00",
-            "comboTexts": {
-                "i1": "Nice!",
-                "i2": "Keep up!",
-                "i3": "Great!",
-                "i4": "Perfect!"
-            },
-            "tap": "assets/tap.wav",
-            "lose": "assets/lose.wav"
-        } 
+        "quicksart": [
+            "preGameScreen.titleImage",
+            "preGameScreen.titleText",
+            "settings.block"
+        ]
     }
 }

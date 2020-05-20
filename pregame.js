@@ -37,6 +37,7 @@ if (config.preGameScreen.showLeaderboardButton) {
 
 let titleText = React.createElement("h1", {
     style: {
+        fontSize: config.preGameScreen.titleTextSize + "px",
         marginBottom: "20px"
     }
 }, config.preGameScreen.titleText);
@@ -46,7 +47,10 @@ let titleImage = React.createElement("img", {
     style: {
         display: "block",
         marginLeft: "auto",
-        marginRight: "auto"
+        marginRight: "auto",
+        objectFit: "contain",
+        width: config.preGameScreen.titleImageSize,
+        height: config.preGameScreen.titleImageSize
     }
 });
 
