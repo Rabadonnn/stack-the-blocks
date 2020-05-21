@@ -162,7 +162,7 @@ class Player {
             return b.y < height + blockSize * 1.1;
         });
 
-        if (true) this.updateCharacter();
+        if (config.settings.showPlayer) this.updateCharacter();
     }
 
     mousePressed() {

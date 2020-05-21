@@ -1,5 +1,3 @@
-let $ = require("jquery");
-
 let config = require("visual-config-exposer").default;
 
 let buttonStyle = {
@@ -24,6 +22,7 @@ let playButton = React.createElement("button", {
 }, config.preGameScreen.playButtonText);
 
 let leaderboardButton;
+let soundButton;
 
 if (config.preGameScreen.showLeaderboardButton) {
     leaderboardButton = React.createElement("button", {
@@ -35,6 +34,40 @@ if (config.preGameScreen.showLeaderboardButton) {
     }, config.preGameScreen.leaderboardButtonText);
 }
 
+class SoundButton extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            src: config.preGameScreen.soundEnabledIcon
+        };
+    }
+
+    render() {
+        return React.createElement("img", {
+            src: this.state.src,
+            onClick: () => {
+                window.soundEnabled = !window.soundEnabled;
+                this.setState({src: window.soundEnabled ? config.preGameScreen.soundEnabledIcon : config.preGameScreen.soundDisabledIcon});
+            },
+            id: "button",
+            style: {
+                maxWidth: "40px",
+                maxHeight: "40px",
+                position: "absolute",
+                bottom: 0,
+                right: 0,
+                marginRight: "15px",
+                marginBottom: "15px",
+                objectFit: "contain"
+            }
+        });
+    }
+}
+
+if (config.preGameScreen.showSoundButton) {
+    soundButton =  React.createElement(SoundButton);
+}
+
 let titleText = React.createElement("h1", {
     style: {
         fontSize: config.preGameScreen.titleTextSize + "px",
@@ -42,7 +75,7 @@ let titleText = React.createElement("h1", {
     }
 }, config.preGameScreen.titleText);
 
-let titleImage = React.createElement("img", { 
+let titleImage = React.createElement("img", {
     src: config.preGameScreen.titleImage,
     style: {
         display: "block",
@@ -72,7 +105,7 @@ let card = React.createElement("div", {
 
         boxShadow: "0px 0px 5px 0px rgba(0,0,0,0.75)"
     }
-}, titleImage, titleText, playButton, leaderboardButton);
+}, titleImage, titleText, playButton, leaderboardButton, soundButton);
 
 let preGameScreenEl = React.createElement("div", {}, card);
 
