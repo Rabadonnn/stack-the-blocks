@@ -12,9 +12,22 @@ let buttonStyle = {
     marginTop: "10px"
 };
 
+let textStyle = {
+    fontSize: "30px",
+    marginTop: "10px"
+}
+
 let components = []
 
-if (config.showLeaderboardButton) {
+if (config.showText) {
+    components.push(
+        React.createElement("div", {
+            style: textStyle
+        }, config.customText),
+    );
+}
+
+if (config.showLeadeboardButtonPostGameScreen) {
     components.push(React.createElement("button", {
         style: buttonStyle,
         id: "button",
@@ -26,10 +39,7 @@ if (config.showLeaderboardButton) {
 
 if (config.showCTA) {
     components.push(React.createElement("p", {
-        style: {
-            marginTop: "20px",
-            fontSize: "30px"
-        }
+        style: textStyle 
     }, config.ctaText));
 
     components.push(React.createElement("button", {
@@ -44,29 +54,29 @@ if (config.showCTA) {
 class PostGameScreen extends React.Component {
     render() {
         return React.createElement("div", {
-            style: {
-                width: "350px",
-                height: "350px",
-                backgroundColor: config.cardColor,
-                borderRadius: "30px",
-                textAlign: "center",
-                
-                position: "absolute",
-                top: "0",
-                bottom: "0",
-                right: "0",
-                left: "0",
-                margin: "auto",
+                style: {
+                    width: "350px",
+                    height: (config.showCTA && config.showLeadeboardButtonPostGameScreen && config.showText) ? "420px" : "350px",
+                    backgroundColor: config.cardColor,
+                    borderRadius: "30px",
+                    textAlign: "center",
 
-                boxShadow: "0px 0px 5px 0px rgba(0,0,0,0.75)"
-            }
-        }, 
+                    position: "absolute",
+                    top: "0",
+                    bottom: "0",
+                    right: "0",
+                    left: "0",
+                    margin: "auto",
+
+                    boxShadow: "0px 0px 5px 0px rgba(0,0,0,0.75)"
+                }
+            },
             React.createElement("div", {
                 style: {
                     fontSize: "30px",
                     marginTop: "10px"
                 }
-            }, "Your Score is: " + window.score),
+            }, config.scoreText + window.score),
             React.createElement("button", {
                 onClick: () => {
                     window.restartGame();

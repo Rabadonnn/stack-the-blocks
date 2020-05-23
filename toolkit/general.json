@@ -14,7 +14,12 @@
                 {
                     "key": "titleTextSize",
                     "header": "Title text size",
-                    "type": "range"
+                    "type": "range",
+                    "options": {
+                        "minValue": 20,
+                        "maxValue": 40,
+                        "stepSize": "1"
+                    }
                 },
                 {
                     "key": "playButtonText",
@@ -39,7 +44,12 @@
                 {
                     "key": "titleImageSize",
                     "header": "Header image size",
-                    "type": "range"
+                    "type": "range",
+                    "options": {
+                        "minValue": 150,
+                        "maxValue": 400,
+                        "stepSize": "1"
+                    }"
                 }, 
                 {
                     "key": "cardColor",
@@ -132,15 +142,21 @@
                 {
                     "key": "blockSize",
                     "type": "range",
-                    "header": "Block size"
+                    "header": "Block size",
+                    "options": {
+                        "minValue": 30,
+                        "maxValue": 60,
+                        "stepSize": "0.1"
+                    }
                 },
                 {
                     "key": "blockCount",
                     "header": "Block count",
                     "type": "range",
                     "options": {
-                        "min": 3,
-                        "max": 6
+                        "minValue": 3,
+                        "maxValue": 6,
+                        "stepSize": 1
                     }
                 },
                 {
@@ -156,7 +172,12 @@
                 {
                     "key": "gameLength",
                     "header": "Game length",
-                    "type": "range"
+                    "type": "range",
+                    "options": {
+                        "minValue": 5,
+                        "maxValue": 60,
+                        "stepSize": "1"
+                    }
                 },
                 {
                     "key": "tap",
@@ -176,7 +197,12 @@
                 {
                     "key": "volume",
                     "header": "Background music volume",
-                    "type": "range"
+                    "type": "range",
+                    "options": {
+                        "minValue": 0,
+                        "maxValue": 1,
+                        "stepSize": "0.1"
+                    }
                 },
                 {
                     "key": "showComboText",
@@ -231,7 +257,7 @@
                 {
                     "key": "textColor",
                     "header": "Text Color",
-                    "type": "text"
+                    "type": "color"
                 },
                 {
                     "key": "cardColor",
@@ -264,7 +290,7 @@
                     "type": "text"
                 },
                 {
-                    "key": "showLeadeboardButton",
+                    "key": "showLeadeboardButtonPostGameScreen",
                     "header": "Show Leadeboard Button",
                     "type": "boolean"
                 },
@@ -347,8 +373,10 @@
             "buttonColor": "#000000",
             "cardColor": "#ffffff",
             "textColor": "#ffffff",
-            "showLeaderboardButton": true,
+            "showLeadeboardButtonPostGameScreen": true,
             "leaderboardButtonText": "Leaderboard",
+            "showText": false,
+            "customText": "Hello world",
             "showCTA": true,
             "ctaText": "Check out our page for more",
             "ctaButtonText": "Go to Playcent",
