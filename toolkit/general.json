@@ -49,7 +49,7 @@
                         "minValue": 150,
                         "maxValue": 400,
                         "stepSize": "1"
-                    }"
+                    }
                 }, 
                 {
                     "key": "cardColor",
