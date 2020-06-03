@@ -22,56 +22,68 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  watch: false,
-  entry: './handler.js',
-  output: {
-    path: path.resolve(__dirname, './dist/'),
-    filename: 'bundle.js'
-  },
-//   optimization: {
-//     minimize: false,
-//   },
-  module: {
-    rules: [
-      {
-        // Preprocess our own .css files
-        test: /\.css$/,
-        exclude: /node_modules/,
-        use: [
-            MiniCssExtractPlugin.loader, // instead of style-loader
-            'css-loader'
-        ]
-      }  
-    ]
-  },
-  devServer: {
-    compress: true,
-    // contentBase: path.resolve(__dirname, '.'),
-    port: process.env['frontendPort'],
-    host: '0.0.0.0',
-    disableHostCheck: true,
-    overlay: true,
-    hot: true,
-    inline: true,
-    watchOptions: {
-      poll: true
-    }
-  },
-  plugins: [
-    new HtmlWebpackPlugin({
-      inject: true,
-      template: './index.html',
-    //   chunks: ['handler']
-    }),
-    new webpack.ProvidePlugin({
-        $: "jquery",
-        jQuery: "jquery"
-    }),
-    new MiniCssExtractPlugin(),
+    watch: false,
+    entry: './handler.js',
+    output: {
+        path: path.resolve(__dirname, './dist/'),
+        filename: 'bundle.js'
+    },
+    //   optimization: {
+    //     minimize: false,
+    //   },
+    module: {
+        rules: [{
+            test: /\.jsx?$/,
+            exclude: /node_modules/,
+            use: [{
+                loader: 'babel-loader',
+                options: {
+                    presets: ['react']
+                }
+            }],
+        }, {
+            // Preprocess our own .css files
+            test: /\.css$/,
+            exclude: /node_modules/,
+            use: [
+                MiniCssExtractPlugin.loader, // instead of style-loader
+                'css-loader'
+            ]
+        }]
+    },
+    devServer: {
+        compress: true,
+        // contentBase: path.resolve(__dirname, '.'),
+        port: process.env['frontendPort'],
+        host: '0.0.0.0',
+        disableHostCheck: true,
+        overlay: true,
+        hot: true,
+        inline: true,
+        watchOptions: {
+            poll: true
+        }
+    },
+    plugins: [
+        new webpack.EnvironmentPlugin({
+            projectUUID: "playcent-project-uuid",
+            dbDomain: "http://playcent.com"
+        }),
+        new HtmlWebpackPlugin({
+            inject: true,
+            template: './index.html',
+            //   chunks: ['handler']
+        }),
+        new webpack.ProvidePlugin({
+            $: "jquery",
+            jQuery: "jquery"
+        }),
+        new MiniCssExtractPlugin(),
 
-  ],
-  resolve: {
-    extensions: ['.js', '.jsx', '.react.js'],
-  },
+    ],
+    resolve: {
+        extensions: ['.js', '.jsx', '.react.js'],
+    },
 
 };
+

@@ -1,38 +1,27 @@
+let React = require('react');
+let ReactDOM = require('react-dom');
+let styled = require("styled-components").default;
+let Database = require("database-api").default;
+
 let config = require("visual-config-exposer").default;
 
-let buttonStyle = {
-    width: "60%",
-    height: "15%",
-    borderRadius: "20px",
-    fontSize: "180%",
-    backgroundColor: config.preGameScreen.buttonColor,
-    color: config.preGameScreen.buttonTextColor,
-    border: "none",
-    outline: "none",
-    marginBottom: "10px"
-};
+let Leaderboard = require("./postgame").leaderboard;
 
-let playButton = React.createElement("button", {
-    onClick: () => {
-        window.setScreen("gameScreen");
-        window.restartGame();
-    },
-    id: "button",
-    style: buttonStyle
-}, config.preGameScreen.playButtonText);
+let database = new Database();
 
-let leaderboardButton;
+const Button = styled.button`
+    width: 60%;
+    height: 15%;
+    border-radius: 20px;
+    font-size: 180%;
+    background-color: ${config.preGameScreen.buttonColor};
+    color: ${config.preGameScreen.buttonTextColor};
+    border: none;
+    outline: none;
+    ${props => props.extra}
+`;
+
 let soundButton;
-
-if (config.preGameScreen.showLeaderboardButton) {
-    leaderboardButton = React.createElement("button", {
-        onClick: () => {
-
-        },
-        id: "button",
-        style: buttonStyle
-    }, config.preGameScreen.leaderboardButtonText);
-}
 
 class SoundButton extends React.Component {
     constructor(props) {
@@ -64,49 +53,82 @@ class SoundButton extends React.Component {
     }
 }
 
-if (config.preGameScreen.showSoundButton) {
-    soundButton =  React.createElement(SoundButton);
+const TitleText = styled.h1`
+    font-size: ${config.preGameScreen.titleTextSize}px;
+    margin-bottom: 20px;
+`;
+
+const TitleImage = styled.img`
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    object-fit: contain;
+    width: ${config.preGameScreen.titleImageSize}px;
+    height: ${config.preGameScreen.ttileImageSize}px;
+`;
+
+const cardHeight = 450;
+const cardWidth = window.mobile() ? 280 : 350;
+
+const Card = styled.div`
+    background-color: ${config.preGameScreen.cardColor};
+    width: ${cardWidth}px;
+    height: ${cardHeight}px;
+    border-radius: 30px;
+    text-align: center;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    margin: auto;
+    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+    ${props => props.extra}
+`;
+
+class PreGameScreen extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            showLeaderboard: false,
+            leaderboardData: null
+        };
+    }
+
+    render() {
+        if (this.state.showLeaderboard) {
+            return(
+                <Card extra="padding: 0 10px;">
+                    <Leaderboard height={`${cardHeight - 120}px`} data={this.state.leaderboardData}></Leaderboard> 
+                    <Button id="button" extra="margin-bottom: 20px;" onClick={() => {this.setState({showLeaderboard: false})}}>Back</Button>
+                </Card>
+            )
+        }
+
+        return (
+            <Card>
+                <TitleImage src={config.preGameScreen.titleImage}></TitleImage>
+                <TitleText>{config.preGameScreen.titleText}</TitleText>
+                <Button id="button" onClick={() => {window.setScreen("gameScreen"); window.restartGame();}}>{config.preGameScreen.playButtonText}</Button>
+                {
+                    config.preGameScreen.showLeaderboardButton &&
+                    <Button id="button" extra="margin-top: 20px;" onClick={ () => {
+                        database.getLeaderBoard().then(data => {
+                            let sortedData = data.sort((a, b) => parseInt(a.score) < parseInt(b.score));
+                            this.setState({
+                                leaderboardData: sortedData,
+                                showLeaderboard: true
+                            });
+                        })
+                    } }>{config.preGameScreen.leaderboardButtonText}</Button>
+                }
+                {
+                    config.preGameScreen.showSoundButton &&
+                    <SoundButton/>
+                }
+            </Card>
+        );
+    }
 }
 
-let titleText = React.createElement("h1", {
-    style: {
-        fontSize: config.preGameScreen.titleTextSize + "px",
-        marginBottom: "20px"
-    }
-}, config.preGameScreen.titleText);
-
-let titleImage = React.createElement("img", {
-    src: config.preGameScreen.titleImage,
-    style: {
-        display: "block",
-        marginLeft: "auto",
-        marginRight: "auto",
-        objectFit: "contain",
-        width: config.preGameScreen.titleImageSize,
-        height: config.preGameScreen.titleImageSize
-    }
-});
-
-let card = React.createElement("div", {
-    style: {
-        backgroundColor: config.preGameScreen.cardColor,
-        width: "350px",
-        height: "450px",
-        borderRadius: "30px",
-
-        textAlign: "center",
-
-        position: "absolute",
-        top: "0",
-        bottom: "0",
-        right: "0",
-        left: "0",
-        margin: "auto",
-
-        boxShadow: "0px 0px 5px 0px rgba(0,0,0,0.75)"
-    }
-}, titleImage, titleText, playButton, leaderboardButton, soundButton);
-
-let preGameScreenEl = React.createElement("div", {}, card);
-
-module.exports = preGameScreenEl;
+module.exports = <PreGameScreen/>;

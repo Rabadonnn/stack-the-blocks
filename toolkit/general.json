@@ -260,6 +260,11 @@
                     "type": "color"
                 },
                 {
+                    "key": "buttonTextColor",
+                    "header": "Button text color",
+                    "type": "color"
+                },
+                {
                     "key": "cardColor",
                     "header": "Card Background Color",
                     "type": "color"
@@ -287,6 +292,21 @@
                 {
                     "key": "customText",
                     "header": "Custom text",
+                    "type": "text"
+                },
+                {
+                    "key": "submitName",
+                    "header": "Show name field",
+                    "type": "boolean"
+                },
+                {
+                    "key": "submitEmail",
+                    "header": "Show email field",
+                    "type": "boolean"
+                },
+                {
+                    "key": "submitScoreText",
+                    "header": "Submit score button text",
                     "type": "text"
                 },
                 {
@@ -318,8 +338,7 @@
                     "key": "ctaUrl",
                     "header": "CTA Link",
                     "type": "text"
-                }
-            ]
+                }]
         }
     ],
     "config": {
@@ -372,11 +391,15 @@
             "playButtonText": "Play Again",
             "buttonColor": "#000000",
             "cardColor": "#ffffff",
-            "textColor": "#ffffff",
+            "textColor": "#000000",
+            "buttonTextColor": "#ffffff",
             "showLeadeboardButtonPostGameScreen": true,
+            "submitScoreText": "Submit score",
             "leaderboardButtonText": "Leaderboard",
-            "showText": false,
+            "showText": true,
             "customText": "Hello world",
+            "submitName": true,
+            "submitEmail": true,
             "showCTA": true,
             "ctaText": "Check out our page for more",
             "ctaButtonText": "Go to Playcent",

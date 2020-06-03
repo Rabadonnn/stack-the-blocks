@@ -3,7 +3,7 @@ let config = require("visual-config-exposer").default;
 const DEBUG = false;
 
 function calcGameSize() {
-    if (window.isMobile) {
+    if (window.mobile()) {
         return {
             w: window.innerWidth,
             h: window.innerHeight
@@ -27,7 +27,7 @@ function calcGameSize() {
 }
 
 function getBlockSize() {
-    if (window.isMobile()) {
+    if (window.mobile()) {
         return config.settings.blockSize * 0.8;
     } else {
         return config.settings.blockSize;
