@@ -50,10 +50,14 @@ window.setScreen = function(screenName) {
 window.restartGame = () => {
     game = new Game();
     
-    if (window.soundEnabled) {
-        window.sounds.theme.setLoop(true);
-        window.sounds.theme.setVolume(parseFloat(config.settings.volume));
-        window.sounds.theme.play();
+    try {
+        if (window.soundEnabled) {
+            window.sounds.theme.setLoop(true);
+            window.sounds.theme.setVolume(parseFloat(config.settings.volume));
+            window.sounds.theme.play();
+        }
+    } catch (err) {
+
     }
 
     window.setScreen("gameScreen");
@@ -77,15 +81,22 @@ window.touchMoved = () => {
     return true;
 }
 
-window.preload = function() {
+function loadImages() {
     window.images.background = loadImage(config.preGameScreen["backgroundImage"])
     window.images.block = loadImage(config.settings.block);
     window.images.idle = loadImage(config.settings.idle);
     window.images.jump = loadImage(config.settings.jump);
+}
 
+function loadSounds() {
     window.sounds.theme = loadSound(config.settings.theme);
     window.sounds.tap = loadSound(config.settings.tap);
     window.sounds.lose = loadSound(config.settings.lose);
+}
+
+window.preload = function() {
+    loadImages();
+    loadSounds();
 }
 
 // load font for p5.js
@@ -103,10 +114,14 @@ window.setup = function() {
 }
 
 window.draw = function() {
-    if (window.currentScreen != "gameScreen" && window.sounds.theme.isPlaying()) {
-        window.sounds.theme.stop();
-    } else if (window.currentScreen == "gameScreen" && !window.sounds.theme.isPlaying() && window.soundEnabled) {
-        window.sounds.theme.play();
+    try {
+        if (window.currentScreen != "gameScreen" && window.sounds.theme.isPlaying()) {
+            window.sounds.theme.stop();
+        } else if (window.currentScreen == "gameScreen" && !window.sounds.theme.isPlaying() && window.soundEnabled) {
+            window.sounds.theme.play();
+        }
+    } catch (err) {
+
     }
     game.draw();
 }
@@ -134,4 +149,3 @@ let screenManager = ReactDOM.render(
 )
 
 let p5sketch = new p5(null, document.getElementById("game-container"));
-
