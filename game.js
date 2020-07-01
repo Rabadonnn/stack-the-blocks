@@ -6,8 +6,8 @@ function calcGameSize() {
     if (window.mobile()) {
         return {
             w: window.innerWidth,
-            h: window.innerHeight
-        }
+            h: window.innerHeight,
+        };
     }
 
     let aspectRatio = 10 / 16;
@@ -22,8 +22,9 @@ function calcGameSize() {
     }
 
     return {
-        w, h
-    }
+        w,
+        h,
+    };
 }
 
 function getBlockSize() {
@@ -42,7 +43,7 @@ const blockSpeedIncrement = 10;
 const blockFallingSpeed = 600;
 let charHeight;
 const playerFallingSpeed = 500;
-// ---------------   
+// ---------------
 
 class Block {
     constructor(x, y) {
@@ -78,7 +79,7 @@ class Player {
         this.placed = [];
 
         for (let i = 0; i < config.settings.blockCount; i++) {
-            let x = (width / 2 - gameSize.w / 2 + blockSize * 2) + blockSize * i * 1.05;
+            let x = width / 2 - gameSize.w / 2 + blockSize * 2 + blockSize * i * 1.05;
             this.blocks.push(new Block(x, height - height / 2.5));
         }
 
@@ -90,7 +91,7 @@ class Player {
             x: width / 2,
             y: this.maxCharY,
             rot: 0,
-            dir: random(100) < 50 ? -1 : 1
+            dir: random(100) < 50 ? -1 : 1,
         };
 
         this.idleWidth = (charHeight / window.images.idle.height) * window.images.idle.width;
@@ -113,7 +114,7 @@ class Player {
         let imgWidth;
 
         if (this.character.y < this.maxCharY) {
-            this.character.y += 250 * deltaTime / 1000;
+            this.character.y += (250 * deltaTime) / 1000;
             img = window.images.jump;
             imgWidth = this.jumpWidth;
         } else {
@@ -122,14 +123,17 @@ class Player {
         }
 
         if (this.blocks.length > 0) {
-            this.character.x = this.blocks[0].x + (this.blocks[this.blocks.length - 1].x - this.blocks[0].x) / 2 - imgWidth / 2;
-                
+            this.character.x =
+                this.blocks[0].x +
+                (this.blocks[this.blocks.length - 1].x - this.blocks[0].x) / 2 -
+                imgWidth / 2;
+
             if (this.character.y > this.maxCharY) {
                 this.character.y = this.maxCharY;
             }
         } else {
-            this.character.rot += this.character.dir * PI * 3 * deltaTime / 1000;
-            this.character.y += playerFallingSpeed * deltaTime / 1000;
+            this.character.rot += (this.character.dir * PI * 3 * deltaTime) / 1000;
+            this.character.y += (playerFallingSpeed * deltaTime) / 1000;
         }
 
         push();
@@ -138,27 +142,27 @@ class Player {
         imageMode(CENTER);
         image(img, 0, 0, imgWidth, charHeight);
         imageMode(CORNER);
-        pop()
+        pop();
     }
 
     draw() {
         if (this.blocks.length > 0) this.checkBounds();
 
-        this.blocks.map(b => {
-            b.draw(this.speed * this.dir * deltaTime / 1000)
+        this.blocks.map((b) => {
+            b.draw((this.speed * this.dir * deltaTime) / 1000);
             return b;
         });
 
-        this.placed = this.placed.filter(b => {
+        this.placed = this.placed.filter((b) => {
             b.draw(0);
             return b.y < height + blockSize * 1.1;
         });
 
-        this.detached = this.detached.filter(b => {
+        this.detached = this.detached.filter((b) => {
             b.draw(0);
-            b.y += blockFallingSpeed * deltaTime / 1000;
-            b.rotation += b.rotDir * PI * deltaTime / 1000;
-            b.x += blockFallingSpeed / 4 * b.rotDir * deltaTime / 1000;
+            b.y += (blockFallingSpeed * deltaTime) / 1000;
+            b.rotation += (b.rotDir * PI * deltaTime) / 1000;
+            b.x += ((blockFallingSpeed / 4) * b.rotDir * deltaTime) / 1000;
             return b.y < height + blockSize * 1.1;
         });
 
@@ -168,12 +172,12 @@ class Player {
     mousePressed() {
         let newPlaced = [];
 
-        this.blocks = this.blocks.filter(b => {
+        this.blocks = this.blocks.filter((b) => {
             if (this.placed.length == 0) {
                 newPlaced.push(new Block(b.x, b.y));
                 return true;
             }
-            
+
             let minx = this.placed[this.placed.length - this.blocks.length].x - blockSize / 2;
             let maxx = this.placed[this.placed.length - 1].x + blockSize / 2;
 
@@ -182,34 +186,35 @@ class Player {
                 return true;
             }
 
-            this.detached.push(new Block(b.x, b.y))
+            this.detached.push(new Block(b.x, b.y));
             return false;
         });
-        
-        if (!newPlaced.length == 0) {
 
+        if (!newPlaced.length == 0) {
             // check for combo
 
-            if (this.placed.length != 0 && abs(newPlaced[0].x - this.placed[this.placed.length - this.blocks.length].x) < 10) {
+            if (
+                this.placed.length != 0 &&
+                abs(newPlaced[0].x - this.placed[this.placed.length - this.blocks.length].x) < 10
+            ) {
                 this.comboCount++;
-                
+
                 // snap new placed
-                
+
                 newPlaced = newPlaced.map((b, i) => {
                     b.x = this.placed[this.placed.length - newPlaced.length + i].x;
                     return b;
                 });
-
             } else {
                 this.comboCount = 0;
             }
 
-            // ---------------  
-            
+            // ---------------
+
             this.placed.push(...newPlaced);
 
-            this.placed = this.placed.map(b => {
-                b.y += blockSize * 1.05
+            this.placed = this.placed.map((b) => {
+                b.y += blockSize * 1.05;
                 return b;
             });
 
@@ -237,7 +242,7 @@ let player;
 class Game {
     constructor() {
         this.defaults();
-    
+
         blockSize = getBlockSize();
         charHeight = blockSize * 2.3;
 
@@ -247,7 +252,7 @@ class Game {
         this.c_comboTextSize = this.comboTextSize;
         this.comboText = "";
         this.comboTextRotation = 0;
-        this.comboTextY =  (height / 2) * 0.5;
+        this.comboTextY = (height / 2) * 0.5;
         this.c_comboTextY = this.comboTextY;
 
         if (config.settings.fixedLength) {
@@ -256,17 +261,23 @@ class Game {
     }
 
     permaUpdate() {
-        
         // Draw screen bounds
         fill(color("rgba(0, 0, 0, 0.2)"));
         rect(0, 0, width / 2 - gameSize.w / 2, height);
         rect(width / 2 + gameSize.w / 2, 0, width / 2 - gameSize.w / 2, height);
-        // ------------------------------ 
-        
+        // ------------------------------
+
         player.draw();
-    
+
         if (config.settings.depth) {
-            setGradient(0, height - height / 4444, width, height / 5, color("rgba(0, 0, 0, 0)"), color("rgba(0, 0, 0, 0.4)"));
+            setGradient(
+                0,
+                height - height / 4444,
+                width,
+                height / 5,
+                color("rgba(0, 0, 0, 0)"),
+                color("rgba(0, 0, 0, 0.4)")
+            );
         }
     }
 
@@ -274,7 +285,6 @@ class Game {
         this.c_comboTextSize = lerp(this.c_comboTextSize, 0, 0.065);
 
         if (this.c_comboTextSize > this.comboTextSize * 0.1) {
-
             this.comboTextRotation = lerp(this.comboTextRotation, 0, 0.03);
 
             this.c_comboTextY = lerp(this.c_comboTextY, this.comboTextY * 1.4, 0.02);
@@ -341,9 +351,9 @@ class Game {
 
         // turn this var to true to end the game
         this.finished = false;
-        
+
         this.particles = [];
-    
+
         this.instructionsFontSize = height / 30;
         this.scoreFontSize = height / 20;
         this.delayBeforeExit = 1.2;
@@ -364,34 +374,46 @@ class Game {
             if (this.started) {
                 this.onMousePress();
             }
-        } else if (!mouseIsPressed && !keyIsDown(32)){
+        } else if (!mouseIsPressed && !keyIsDown(32)) {
             this.mouse_pressed = false;
-        }        
+        }
     }
 
     calcBgImageSize() {
-        // background image size calculations
         this.bgImage = window.images.background;
-        let originalRatios = {
-            width: window.innerWidth / this.bgImage.width,
-            height: window.innerHeight / this.bgImage.height
-        };
- 
-        let coverRatio = Math.max(originalRatios.width, originalRatios.height);
-        this.bgImageWidth = this.bgImage.width * coverRatio;
-        this.bgImageHeight = this.bgImage.height * coverRatio;
+        if (config.preGameScreen.backgroundMode == "fit") {
+            let size = calculateAspectRatioFit(this.bgImage.width, this.bgImage.height, width, height);
+            this.bgImageWidth = size.width;
+            this.bgImageHeight = size.height;
+        } else {
+            // background image size calculations
+            let originalRatios = {
+                width: window.innerWidth / this.bgImage.width,
+                height: window.innerHeight / this.bgImage.height,
+            };
+
+            let coverRatio = Math.max(originalRatios.width, originalRatios.height);
+            this.bgImageWidth = this.bgImage.width * coverRatio;
+            this.bgImageHeight = this.bgImage.height * coverRatio;
+        }
     }
 
     draw() {
-        clear();    
+        clear();
         try {
-            image(this.bgImage, width / 2 - this.bgImageWidth / 2, height / 2 - this.bgImageHeight / 2, this.bgImageWidth, this.bgImageHeight);
+            image(
+                this.bgImage,
+                width / 2 - this.bgImageWidth / 2,
+                height / 2 - this.bgImageHeight / 2,
+                this.bgImageWidth,
+                this.bgImageHeight
+            );
         } catch (err) {
             this.calcBgImageSize();
         }
 
         if (window.currentScreen == "gameScreen") {
-            // Draw fps if in debug mode           
+            // Draw fps if in debug mode
             if (DEBUG) {
                 noStroke();
                 fill(0);
@@ -409,23 +431,26 @@ class Game {
                 this.updateGame();
             }
 
-            this.particles = this.particles.filter(p => {
+            this.particles = this.particles.filter((p) => {
                 p.draw();
                 return !p.dead;
-            })
+            });
 
-            // Animate instructions font size 
+            // Animate instructions font size
             // in and out
             if (this.instructionsFontSize - this.c_instructionsFontSize > 0.1 && !this.started) {
-                this.c_instructionsFontSize = lerp(this.c_instructionsFontSize, this.instructionsFontSize, 0.2);
+                this.c_instructionsFontSize = lerp(
+                    this.c_instructionsFontSize,
+                    this.instructionsFontSize,
+                    0.2
+                );
             }
 
             if (this.c_instructionsFontSize > 0.1) {
-           
                 if (this.started) {
-                    this.c_instructionsFontSize = lerp(this.c_instructionsFontSize, 0, 0.4); 
+                    this.c_instructionsFontSize = lerp(this.c_instructionsFontSize, 0, 0.4);
                 }
-                
+
                 textStyle(NORMAL);
                 noStroke();
                 fill(color(config.settings.textColor));
@@ -440,7 +465,7 @@ class Game {
 
             if (this.started) {
                 this.c_scoreFontSize = lerp(this.c_scoreFontSize, this.scoreFontSize, 0.2);
-                
+
                 textStyle(NORMAL);
                 noStroke();
                 fill(color(config.settings.textColor));
@@ -458,11 +483,11 @@ class Game {
 
             if (this.finished) {
                 this.delayBeforeExit -= deltaTime / 1000;
-            
+
                 if (this.delayBeforeExit < 0) {
                     window.setEndScreenWithScore(this.score);
                 }
-            }       
+            }
         }
     }
 }
@@ -470,7 +495,7 @@ class Game {
 // Helper functions
 
 function playSound(sound) {
-    try {   
+    try {
         if (window.soundEnabled) {
             sound.play();
         }
@@ -520,12 +545,11 @@ class Particle {
 
         this.lifespan -= deltaTime / 1000;
 
-        this.rotation += this.rotSpeed * deltaTime / 1000;
+        this.rotation += (this.rotSpeed * deltaTime) / 1000;
 
         if (this.lifespan <= 0) this.dead = true;
 
         if (!this.dead) {
-
             this.x += this.acc.x;
             this.y += this.acc.y;
 
@@ -580,7 +604,7 @@ class Rectangle {
         }
         return false;
     }
-    
+
     debug() {
         if (DEBUG) {
             stroke(this.debugColor);
@@ -596,10 +620,12 @@ class Rectangle {
 }
 
 function intersectRect(r1, r2) {
-    return !(r2.left() > r1.right() ||
+    return !(
+        r2.left() > r1.right() ||
         r2.right() < r1.left() ||
         r2.top() > r1.bottom() ||
-        r2.bottom() < r1.top());
+        r2.bottom() < r1.top()
+    );
 }
 
 function randomParticleAcc(amt) {
@@ -613,6 +639,6 @@ function calculateAspectRatioFit(srcWidth, srcHeight, maxWidth, maxHeight) {
     return { width: srcWidth * ratio, height: srcHeight * ratio };
 }
 
-//------------------------------ 
+//------------------------------
 
 module.exports = Game;

@@ -37,6 +37,15 @@
                     "type": "image"
                 },
                 {
+                    "key": "backgroundMode",
+                    "header": "Background Image Mode",
+                    "type": "dropdown",
+                    "options": [
+                        "cover",
+                        "fit"
+                    ]
+                },
+                {
                     "key": "titleImage",
                     "header": "Header Image",
                     "type": "image"
@@ -50,7 +59,7 @@
                         "maxValue": 400,
                         "stepSize": "1"
                     }
-                }, 
+                },
                 {
                     "key": "cardColor",
                     "header": "Card Color",
@@ -123,7 +132,7 @@
                     "key": "block",
                     "header": "Block Image",
                     "type": "image"
-                }, 
+                },
                 {
                     "key": "showPlayer",
                     "header": "Show player over platform",
@@ -177,6 +186,16 @@
                         "minValue": 5,
                         "maxValue": 60,
                         "stepSize": "1"
+                    }
+                },
+                {
+                    "key": "scoreToWin",
+                    "header": "Score required to show custom text",
+                    "type": "range",
+                    "options": {
+                        "minValue": 0,
+                        "maxValue": 500,
+                        "stepSize": 1
                     }
                 },
                 {
@@ -338,7 +357,8 @@
                     "key": "ctaUrl",
                     "header": "CTA Link",
                     "type": "text"
-                }]
+                }
+            ]
         }
     ],
     "config": {
@@ -350,6 +370,7 @@
             "buttonColor": "#000000",
             "buttonTextColor": "#ffffff",
             "backgroundImage": "assets/background.png",
+            "backgroundMode": "cover",
             "titleImage": "assets/placeholder_logo.jpg",
             "titleImageSize": 200,
             "fontFamily": "Balsamiq Sans",
@@ -375,6 +396,7 @@
             "depth": true,
             "fixedLength": true,
             "gameLength": 15,
+            "scoreToWin": 10,
             "showComboText": true,
             "comboTextColor": "#ffff00",
             "comboTexts": {
